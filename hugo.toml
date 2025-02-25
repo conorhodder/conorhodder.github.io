@@ -31,8 +31,8 @@ defaultcontentlanguage = "en"
 
         enableTwemoji = true
 
-        colorScheme = "auto"
-        hidecolorschemetoggle = false
+        colorScheme = "dark"
+        hidecolorschemetoggle = true
 
         # customCSS = ["css/custom.css"]
         # customSCSS = ["scss/custom.scss"]
