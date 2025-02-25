@@ -5,59 +5,60 @@ languagecode = "en"
 defaultcontentlanguage = "en"
 
 [pagination]
-pagerSize = 20
+    pagerSize = 20
 
 [services]
-[services.disqus]
-shortname = "engineering"
+    [services.disqus]
+        shortname = "engineering"
 
-[markup.highlight]
-style = "github-dark"
+    [markup.highlight]
+        style = "github-dark"
 
-[params]
-author = "Conor Hodder"
-info = "Backend & Devops Engineer"
-description = "Conor Hodders's personal website"
-keywords = "blog,developer,personal"
-#avatarurl = "images/avatar.jpg"
-#gravatar = "john.doe@example.com"
+    [params]
+        author = "Conor Hodder"
+        info = "Backend & Devops Engineer"
+        description = "Conor Hodders's personal website"
+        keywords = "blog,developer,personal"
 
-faviconSVG = "/img/favicon.svg"
-favicon_32 = "/img/favicon.png"
-#favicon_16 = "/img/favicon-16x16.png"
+        avatarurl = "images/avatar.jpg"
+        #gravatar = "john.doe@example.com"
 
-since = 2019
+        faviconSVG = "/img/favicon.svg"
+        favicon_32 = "/img/favicon.png"
+        #favicon_16 = "/img/favicon-16x16.png"
 
-enableTwemoji = true
+        since = 2019
 
-colorScheme = "auto"
-hidecolorschemetoggle = false
+        enableTwemoji = true
 
-# customCSS = ["css/custom.css"]
-# customSCSS = ["scss/custom.scss"]
-# customJS = ["js/custom.js"]
+        colorScheme = "auto"
+        hidecolorschemetoggle = false
 
-[taxonomies]
-category = "categories"
-series = "series"
-tag = "tags"
-author = "authors"
+        # customCSS = ["css/custom.css"]
+        # customSCSS = ["scss/custom.scss"]
+        # customJS = ["js/custom.js"]
 
-# Social links
-[[params.social]]
-name = "Github"
-icon = "fa-brands fa-github fa-2x"
-weight = 1
-url = "https://github.com/conorhodder/"
+    [taxonomies]
+        category = "categories"
+        series = "series"
+        tag = "tags"
+        author = "authors"
 
-[[params.social]]
-name = "LinkedIn"
-icon = "fa-brands fa-linkedin fa-2x"
-weight = 1
-url = "https://www.linkedin.com/in/conorhodder/"
+    # Social links
+    [[params.social]]
+        name = "Github"
+        icon = "fa-brands fa-github fa-2x"
+        weight = 1
+        url = "https://github.com/conorhodder/"
 
-# Menu links
-[[menu.main]]
-name = "Engineering Blog"
-weight = 1
-url  = "engineering/"
+    [[params.social]]
+        name = "LinkedIn"
+        icon = "fa-brands fa-linkedin fa-2x"
+        weight = 1
+        url = "https://www.linkedin.com/in/conorhodder/"
+
+    # Menu links
+    [[menu.main]]
+        name = "Engineering Blog"
+        weight = 1
+        url  = "engineering/"
