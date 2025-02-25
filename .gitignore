@@ -6,3 +6,7 @@ _site/
 .bundle/
 vendor/
 .idea/
+
+# Hugo files
+public/
+resources/
