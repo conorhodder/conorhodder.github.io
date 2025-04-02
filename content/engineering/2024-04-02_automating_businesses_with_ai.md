@@ -1,6 +1,6 @@
 +++
-date = '2025-04-02T16:45:40-08:00'
-draft = true
+date = '2025-04-01T16:45:40-08:00'
+draft = false
 title = "Automating businesses with AI"
 +++
 
