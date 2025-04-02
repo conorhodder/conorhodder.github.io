@@ -1,149 +1,136 @@
 +++
 date = '2025-04-01T16:45:40-08:00'
 draft = false
-title = "Generating Passive Income using Generative AI"
+title = "Generating Passive Income Using Generative AI"
 +++
 
-Five years ago, I started on a pursuit. I wanted to see how I could go about generating my own passive income in 
-a way that allowed me to quit my "day job" and work purely on passion projects. Today, I can finally say that I have 
-succeeded in that pursuit.
+## The Journey to Passive Income
 
-# What I Did Wrong
+Five years ago, I set out on a mission: to create a sustainable source of passive income that would allow me to quit my day job and focus purely on passion projects. Today, I can finally say I've achieved that goal.
 
-We are all here mostly to learn about my failures, right? That's always the interesting part of these discussions
-so let's just start with those.  If I could have my time over again, here is what I would do differently:
+---
 
-1. Building it in Kubernetes thinking this would be a fun tech stack to learn (it was fun, but completely unnecessary).
-2. Diving headfirst into new technologies thinking they are always good. The ethics around AI are divisive and this generated a lot of strong discussions.
-3. Not realising when I became a hindrance to my own process, rather than a benefit. I ended up slowing down the process by being too involved once it reached a certain point.
-4. Not talking about this sooner - this journey has been incredible and I wish I had catalogued it more.
+## Lessons from My Mistakes
 
-# 7 Stages of the Business
+Failures are often the best teachers, so let’s start with what I did wrong. If I could go back, here’s what I’d do differently:
 
-## Stage One: Defining the Goals
+1. **Overcomplicating Tech Choices** – I built everything in Kubernetes thinking it would be a fun tech stack to learn. It was fun, but completely unnecessary.
+2. **Jumping on New Tech Blindly** – AI ethics can be controversial, and I underestimated how much debate this would generate.
+3. **Not Knowing When to Step Back** – At some point, I became a bottleneck in my own process rather than a benefit.
+4. **Waiting Too Long to Share My Journey** – I wish I had documented and talked about this earlier.
 
-My goal with this was simple - I wanted passive income. Seems simple, right?  Well I did have a few caveats:
+---
 
-- I didn't want to do it under my own name (imposter syndrome?).
-- I have very little creative skills.
-- I didn't trust anything that was set and forget. 
-- I wanted to learn while I did it.
+## The 7 Stages of Building the Business
 
-## Stage Two: Defining the Problem Space
+### **Stage One: Defining the Goals**
 
-The problem space I was comfortable with was limited - I don't know how to make amazing art I could sell on Etsy, 
-I don't know how to write a book I could publish forever more and I don't know how to run businesses that have humans.
+My goal was simple—create passive income. But there were a few caveats:
 
-So with that, I had a target: I needed to build something that would self-iterate over time while continuing to 
-generate income.
+- I didn't want to do it under my real name (hello, imposter syndrome!).
+- I had very little creative ability.
+- I didn't trust "set and forget" models.
+- I wanted to keep learning along the way.
 
-## Stage Three: Fail Fast
+---
 
-I always like the fail-fast mentality. This meant that I wanted to spend very little time worrying about re-building
-things, but I also needed fast input. I have a background in game development, generative & predictive AI and machine
-learning - so these skills can surely be used in some way to make things work...
+### **Stage Two: Finding the Right Niche**
 
-Problem is that games need a few skills I don't have, and don't want to learn - art, music, design, story 
-(the creative stuff). And these things don't just passively generate money unless they are high quality. I don't have
-time for that! 
+I knew my limitations:
 
-So I published about 10 different, bad, games to see what the market was like. I targeted self-hosted internet-based
-games to get fast, iterative release. I polled my friends for story ideas and I just accepted to music or art quality
-would be available.
+- I couldn't create high-quality art.
+- I wasn’t a writer who could publish best-selling books.
+- I didn't want to manage a business that required direct human involvement.
 
-This failed... Spectacularly. I spent more money in the first few months hosting and investigating marketing streams
-and advertising paths and sponsorships, and I had not slept in a week trying to keep a full time job on top of all of 
-this.
+So, I needed to build something that could evolve on its own while consistently generating revenue.
 
-Here is an example - before you look at it, please remember that I am a backend dev and the internal game loops were
-amazingly optimised.....
+---
+
+### **Stage Three: Failing Fast**
+
+I embraced the "fail fast" mentality, testing ideas quickly without getting too attached. My background in game development and AI led me to experiment with self-hosted, internet-based games.
+
+I launched **10 different (bad) games** to see what worked. I kept costs low, polled friends for story ideas, and accepted that the art and music would be… questionable.
+
+**The result?** A spectacular failure.
+
+- Hosting costs exceeded earnings.
+- Marketing and advertising were expensive.
+- I lost sleep balancing this with my full-time job.
+
+Here’s an example of one of my early attempts:
 
 ![before.png](/img/2024-04-02_automating_businesses_with_ai_bad.png)
 
-Yes this was actually a published, designed game - now you know why I didn't want my name on them...
+Yep, this was a *real* published game. Now you see why I didn’t want my name attached.
 
-I stopped and spent a month of thinking inwardly - was passive income actually beneficial to my life, if it introduced
-this much stress? I re-assessed my goals, am I still on track? Where did I go wrong.
+After a month of reflection, I realized I was **breaking my own rules**—I was spending *more* time and *more* money on something that wasn’t bringing me joy. I had to rethink my approach.
 
-I realised that I was doing all the things I said I didn't want to do - I was spending **more** time and **more** money on 
-something that didn't bring me any passion. I wondered to myself, is there something I could do to make my life easier?
+---
 
-## Stage Four: The uplifting montage
+### **Stage Four: Automation with Generative AI**
 
-At this point, I looked at everything I wasn't good at - and instead of trying to become good I automated it using
-generative AI. I started small - I had games that sucked, but I had a framework that kinda worked. I then looked at 
-some open-source models that allowed art generation, and made sure that the models were trained only on art that the
-artists were signing off or selling for training, and used it to generate incredibly bad art. But it was a start.
+Instead of struggling with what I wasn’t good at, I automated it using AI.
+
+- I leveraged open-source AI models (ethically trained) to generate art.
+- I switched to static hosting, drastically reducing server costs.
+- I monetized games through ads to create a sustainable revenue stream.
+
+With these changes, things started looking up:
 
 ![AI Energy After](/img/2024-04-02_automating_businesses_with_ai_after.png)
 
-I then took a look at the ROI for this game - it was incredibly low. I spent more on hosting than I got back from it -
-what could I do for that? Well, I monetised the game via ads and everything else was able to be statically hosted rather
-than hosted by some conglomerate, so I just moved everything to static hosting and let the consumers run the games. Easy
-win, that honestly I should have thought about sooner. This dropped my hosting costs drastically as now it was just a 
-relatively small javascript hosted in blob storage.
+---
 
-I spent the next month monitoring feedback on the games, they were mostly okay but the retention scores were low. I 
-wasn't going to get long term passive income from this. So now I had to figure out a way to take that idea, and make it
-repeatable.
+### **Stage Five: Refining the Process**
 
-## Stage Five: Stabilise
+I didn’t fully automate everything right away—I first needed to prove it was worth it.
 
-I didn't want to automate everything too early, I didn't know how long this would last. I spent a few months manually
-making new, short, games. I wanted to make sure this was actually something before I turned on the firehose. So far,
-my games weren't costing me anything but my time and the income was incredibly small but there.
+**Key changes:**
+- I removed *high-cost, low-reward* game genres (e.g., JRPGs).
+- I automated **idea generation** with generative AI.
+- I refined AI prompts from simple *"make me an idle game"* to advanced techniques like **chain-of-thought prompting**.
+- I even automated parts of coding, reducing my daily workload from hours of development to simple **QA testing**.
 
-I realised that the next thing I was most-bad at was idea generation. My games were just bland and uninspiring remakes
-on the same themes. They were all idle, incremental or JRPG games that played for 4-6 hours of active time and centered
-around an uninspiring story.
+Eventually, I realized **I was the bottleneck**—so I stepped back and let the AI take over.
 
-Luckily, there was a tool called generative AI I could use to help here. I cut some corners here I am not proud of - 
-unfortunately I did use some models that were trained on non-public data (a problem I have now resolved). I chose to 
-just accept the lack of music in my games, noone seems to mind for the style of games.
+---
 
-The metrics showed that the JRPG genre was a lot more expensive to make and less profitable, with a lot worse reviews 
-so I chose to drop those from the list.
+### **Stage Six: Profitability & Full Automation**
 
-I slowly automated decision-making processes as much as possible - need new ideas? Well let's find a way to generate 
-those in a higher capacity, or more varied. I refined my prompting from vague "make me an idle game" to using more
-advanced techniques like N-shot prompting, and chain-of-thought prompting methods to try and get better examples out
-of my existing systems as well as refining my model on feedback from the already published games.
+Now, the system runs on autopilot. For the last **six months**, I haven’t touched it—except to pay the cloud bill. Yet, the income keeps flowing.
 
-Writing code is what I do for a living, and it is my passion, but spending 3-4 hours every day writing game code was 
-killing me (javascript is not my preferred language) so I even started automating parts of that. I slowly got my time
-down to where I was purely just QA-ing the games by playing a game genre I loved, eventually I realised that I was 
-actually just redundant and slowing the process down. I did catch the occasional bug, but my market also didn't care
-about those - I wasn't making AAA games.
+Every week, the pipeline automatically:
 
-## Stage Six: Profit
+1. Checks advertising revenue and community feedback.
+2. Scans gaming platforms like Reddit, itch.io, and IncrementalDB for trends.
+3. Generates and publishes a new game.
+4. Deploys to **Android Play Store** or **web platforms**.
 
-I have not touched this system (other than to pay my cloud bill) in over 6 months, yet the pay keeps rolling in.
+Android games are my biggest moneymaker, but I keep both streams active for stability.
 
-After 5 years, I have now "finished" tinkering with the pipe, and it is working consistently. Every week, it starts up
-and scans my accounts for activity. It follows a rough flow like:
+---
 
-- Check advertising revenue and reddit threads, and make a determination of whether a new game should be published
-- Scan reddit and a few key game-hosting sites (itch.io, incrementaldb.com and galaxy.click) for games and comments
-- Generate a new game
-- Publish the game to the Android Play Store and/or to a publicly hosted game site
+### **Stage Seven: Keep Learning & Improving**
 
-As you can see, this runs completely automated, I publish a new game every couple of days in most scenarios with my
-Android games being much more profitable than my web games however I chose to continue both streams to ensure that 
-I have redundant income streams.
+Now that my proof of concept is working, I won’t stop tinkering. I could **walk away today** and live off this system—but where’s the fun in that?
 
-## Stage Seven: Learn
+---
 
-Now that my proof of concept is there, I will never stop tinkering with it. I have proven I could stop now and 
-comfortably live off this, however it is way too much fun to play with.
+## **(Some) Tools I Used**
 
+Over five years, I’ve used countless tools, but here’s what my final stack looks like:
 
-# (Some) Tools I Used
+- **Frontend**: Loveable (recently rebuilt UI)
+- **AI Models**: Fine-tuned models from Hugging Face
+- **Hosting**: Google Cloud Platform (GCP) using Kubernetes (GKE)
+- **Languages**: Golang, JavaScript, Python
+- **Publishing**: itch.io & Google Play Store
 
-Not all the tools are listed here, because honestly over 5 years I have probably forgot more than I remember. However,
-the final stack looks like:
+---
 
-- Back-office frontend re-built recently using Loveable
-- Most LLMs are fine-tuned based on models from HuggingFace
-- Hosting on GCP using GKE
-- Languages are a mix of Golang, Javascript & Python depending on the day of the week I wrote it
-- Artifacts are published to `itch.io` and `Google Play Store`
+## Final Thoughts
+
+This journey has been full of mistakes, pivots, and unexpected lessons. But in the end, AI-powered automation gave me the freedom I wanted.
+
+If you're thinking about starting your own passive income project, remember: **Fail fast, automate wisely, and keep learning.**
