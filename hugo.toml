@@ -20,7 +20,7 @@ defaultcontentlanguage = "en"
         description = "Conor Hodders's personal website"
         keywords = "blog,developer,personal"
 
-        avatarurl = "images/avatar.jpg"
+        avatarurl = "img/avatar.jpg"
         #gravatar = "john.doe@example.com"
 
         faviconSVG = "/img/favicon.svg"
@@ -59,6 +59,6 @@ defaultcontentlanguage = "en"
 
     # Menu links
     [[menu.main]]
-        name = "Engineering Blog"
+        name = "Technical Blog"
         weight = 1
-        url  = "engineering/"
+        url  = "technical/"
