@@ -1,38 +1,28 @@
 +++
 date = '2025-04-01T16:45:40-08:00'
 draft = false
-title = "Automating businesses with AI"
+title = "Generating Passive Income using Generative AI"
 +++
 
-Five years ago, I started on this pursuit - I wanted to see how far I could go building an AI led business.
-
+Five years ago, I started on a pursuit. I wanted to see how I could go about generating my own passive income in 
+a way that allowed me to quit my "day job" and work purely on passion projects. Today, I can finally say that I have 
+succeeded in that pursuit.
 
 # What I Did Wrong
 
 We are all here mostly to learn about my failures, right? That's always the interesting part of these discussions
-so let's just start with those.
+so let's just start with those.  If I could have my time over again, here is what I would do differently:
 
-If I could have my time over again, here is what I would do differently:
-
-1. I would look at the real world impact of my decisions, and consciously try and choose green energy first or optimise my models to ensure I am limiting my impact on the planet.
-2. I spent way too much time tinkering and improving, rather than proving.
-3. Humans are not always better decision makers than computers, even on creative elements.
-4. That AI is way more scary and powerful than I ever thought. It is so much further along, and with only limited knowledge and dangerous fingers you can really achieve a lot.
-
-If you really want a list of things I think I did well, here goes:
-
-1. Leveraged my personal skills and automated the things I was bad at, or took me time
-2. Created a clear goal and THEN defined the solution (AI).
-3. Never stopped.
+1. Building it in Kubernetes thinking this would be a fun tech stack to learn (it was fun, but completely unnecessary).
+2. Diving headfirst into new technologies thinking they are always good. The ethics around AI are divisive and this generated a lot of strong discussions.
+3. Not realising when I became a hindrance to my own process, rather than a benefit. I ended up slowing down the process by being too involved once it reached a certain point.
+4. Not talking about this sooner - this journey has been incredible and I wish I had catalogued it more.
 
 # 7 Stages of the Business
 
 ## Stage One: Defining the Goals
 
-My goal with this was simple - I wanted passive income. I wanted to be able to work on projects I loved for the joy
-of it and not have to ever worry about money ever again. Seems simple, right?
-
-Well I did have a few caveats:
+My goal with this was simple - I wanted passive income. Seems simple, right?  Well I did have a few caveats:
 
 - I didn't want to do it under my own name (imposter syndrome?).
 - I have very little creative skills.
@@ -65,6 +55,13 @@ This failed... Spectacularly. I spent more money in the first few months hosting
 and advertising paths and sponsorships, and I had not slept in a week trying to keep a full time job on top of all of 
 this.
 
+Here is an example - before you look at it, please remember that I am a backend dev and the internal game loops were
+amazingly optimised.....
+
+![before.png](/img/2024-04-02_automating_businesses_with_ai_bad.png)
+
+Yes this was actually a published, designed game - now you know why I didn't want my name on them...
+
 I stopped and spent a month of thinking inwardly - was passive income actually beneficial to my life, if it introduced
 this much stress? I re-assessed my goals, am I still on track? Where did I go wrong.
 
@@ -78,10 +75,13 @@ generative AI. I started small - I had games that sucked, but I had a framework 
 some open-source models that allowed art generation, and made sure that the models were trained only on art that the
 artists were signing off or selling for training, and used it to generate incredibly bad art. But it was a start.
 
+![AI Energy After](/img/2024-04-02_automating_businesses_with_ai_after.png)
+
 I then took a look at the ROI for this game - it was incredibly low. I spent more on hosting than I got back from it -
 what could I do for that? Well, I monetised the game via ads and everything else was able to be statically hosted rather
 than hosted by some conglomerate, so I just moved everything to static hosting and let the consumers run the games. Easy
-win, that honestly I should have thought about sooner.
+win, that honestly I should have thought about sooner. This dropped my hosting costs drastically as now it was just a 
+relatively small javascript hosted in blob storage.
 
 I spent the next month monitoring feedback on the games, they were mostly okay but the retention scores were low. I 
 wasn't going to get long term passive income from this. So now I had to figure out a way to take that idea, and make it
@@ -104,7 +104,7 @@ just accept the lack of music in my games, noone seems to mind for the style of 
 The metrics showed that the JRPG genre was a lot more expensive to make and less profitable, with a lot worse reviews 
 so I chose to drop those from the list.
 
-I slowly automated decision-making processes as much as possible - I need new ideas? Well let's find a way to generate 
+I slowly automated decision-making processes as much as possible - need new ideas? Well let's find a way to generate 
 those in a higher capacity, or more varied. I refined my prompting from vague "make me an idle game" to using more
 advanced techniques like N-shot prompting, and chain-of-thought prompting methods to try and get better examples out
 of my existing systems as well as refining my model on feedback from the already published games.
@@ -135,3 +135,15 @@ I have redundant income streams.
 
 Now that my proof of concept is there, I will never stop tinkering with it. I have proven I could stop now and 
 comfortably live off this, however it is way too much fun to play with.
+
+
+# (Some) Tools I Used
+
+Not all the tools are listed here, because honestly over 5 years I have probably forgot more than I remember. However,
+the final stack looks like:
+
+- Back-office frontend re-built recently using Loveable
+- Most LLMs are fine-tuned based on models from HuggingFace
+- Hosting on GCP using GKE
+- Languages are a mix of Golang, Javascript & Python depending on the day of the week I wrote it
+- Artifacts are published to `itch.io` and `Google Play Store`
