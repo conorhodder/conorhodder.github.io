@@ -17,17 +17,17 @@ defaultcontentlanguage = "en"
     [params]
         author = "Conor Hodder"
         info = "Backend & Devops Engineer"
-        description = "Conor Hodders's personal website"
+        description = "There has to be a better way"
         keywords = "blog,developer,personal"
 
         avatarurl = "img/avatar.jpg"
-        #gravatar = "john.doe@example.com"
 
-        faviconSVG = "/img/favicon.svg"
-        favicon_32 = "/img/favicon.png"
+        #gravatar = "john.doe@example.com"
+        #faviconSVG = "/img/favicon.svg"
+        #favicon_32 = "/img/favicon.png"
         #favicon_16 = "/img/favicon-16x16.png"
 
-        since = 2019
+        since = 2007
 
         enableTwemoji = true
 
