@@ -13,19 +13,13 @@ const frameworks = [
     name: "Google ADK",
     link: "https://github.com/google/adk",
     description: "Google's Agent Development Kit: production-grade, multi-agent, model-agnostic, code-first, rapidly evolving.",
-    review: { fit: 5, maturity: 3, "assessment-date": "2025-07-01" }
+    review: { fit: 7, maturity: 3, "assessment-date": "2025-07-01" }
   },
   {
     name: "LangGraph (LangChain)",
     link: "https://github.com/langchain-ai/langgraph",
     description: "LangGraph: expressive, graph-based agent orchestration for complex, stateful, multi-agent workflows.",
     review: { fit: 5, maturity: 8, "assessment-date": "2025-07-01" }
-  },
-  {
-    name: "BeeAI Framework",
-    link: "https://github.com/i-am-bee/beeai-framework",
-    description: "BeeAI: multi-agent, Python/TypeScript, production-ready, highly flexible, open-source.",
-    review: { fit: 5.5, maturity: 7.5, "assessment-date": "2025-07-01" }
   },
   {
     name: "CrewAI",
@@ -40,28 +34,10 @@ const frameworks = [
     review: { fit: 4, maturity: 7.5, "assessment-date": "2025-07-01" }
   },
   {
-    name: "SmolAgents (Hugging Face)",
-    link: "https://github.com/huggingface/smolagents",
-    description: "SmolAgents: minimalist, code-first, code-executing agents, efficient and open-source.",
-    review: { fit: 8, maturity: 6.5, "assessment-date": "2025-07-01" }
-  },
-  {
     name: "AutoGen (Microsoft)",
     link: "https://github.com/microsoft/autogen",
     description: "AutoGen: multi-agent, LLM-powered conversations and workflows, strong on agent-to-agent communication.",
     review: { fit: 3, maturity: 7, "assessment-date": "2025-07-01" }
-  },
-  {
-    name: "Agent Zero",
-    link: "https://aiagentstore.ai/ai-agent/agent-zero",
-    description: "Agent Zero: open-source, highly customizable, supports dynamic, interactive, and multi-agent systems.",
-    review: { fit: 3, maturity: 3, "assessment-date": "2025-07-01" }
-  },
-  {
-    name: "MetaGPT",
-    link: "https://github.com/geekan/MetaGPT",
-    description: "MetaGPT: multi-agent, collaborative software engineering and automation, role-based agent teams.",
-    review: { fit: 1, maturity: 4, "assessment-date": "2025-07-01" }
   },
   {
     name: "Haystack Agents",
@@ -108,21 +84,29 @@ document.addEventListener('DOMContentLoaded', function () {
       ctx.fillRect(xMid, yMid, chartArea.right - xMid, chartArea.bottom - yMid);
       ctx.restore();
 
-      // Draw quadrant labels
+      // Draw quadrant labels at the outer edges
       ctx.save();
       ctx.font = 'bold 18px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#333';
-      
-      // Q1 (top-right)
-      ctx.fillText('Adopt', xMid + (chartArea.right - xMid) / 2, chartArea.top + (yMid - chartArea.top) / 2);
-      // Q2 (top-left)
-      ctx.fillText('Maintain', chartArea.left + (xMid - chartArea.left) / 2, chartArea.top + (yMid - chartArea.top) / 2);
-      // Q3 (bottom-left)
-      ctx.fillText('Avoid', chartArea.left + (xMid - chartArea.left) / 2, yMid + (chartArea.bottom - yMid) / 2);
-      // Q4 (bottom-right)
-      ctx.fillText('Investigate', xMid + (chartArea.right - xMid) / 2, yMid + (chartArea.bottom - yMid) / 2);
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = 'rgba(0,0,0,0.5)';
+      const margin = 12;
+      // Q2 (top-left): Maintain
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText('Maintain', chartArea.left + margin, chartArea.top + margin);
+      // Q1 (top-right): Adopt
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'top';
+      ctx.fillText('Adopt', chartArea.right - margin, chartArea.top + margin);
+      // Q3 (bottom-left): Avoid
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('Avoid', chartArea.left + margin, chartArea.bottom - margin);
+      // Q4 (bottom-right): Watch
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('Watch', chartArea.right - margin, chartArea.bottom - margin);
       ctx.restore();
     }
   };
