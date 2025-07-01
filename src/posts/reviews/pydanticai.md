@@ -8,7 +8,7 @@ summary: "A critical review of Pydantic AI — what works, what doesn't, and who
 
 ## Summary
 
-Pydantic AI is a deliberate attempt to bring the same rigor, reliability, and developer-first philosophy that made Pydantic a staple in Python backends to the chaotic world of LLM outputs.
+Pydantic AI is a deliberate attempt to bring the same rigor, reliability, and developer-first philosophy that made [Pydantic](https://docs.pydantic.dev/) a staple in Python backends to the chaotic world of LLM outputs.
 
 It is not magic, but it's a _real_ step forward for anyone serious about production-grade LLM applications. It brings the rigor of type safety and validation to a domain that desperately needs it. If you're building anything where LLM output needs to be reliable, you're playing with fire if you don't use something like this.
 
@@ -26,92 +26,27 @@ It is not magic, but it's a _real_ step forward for anyone serious about product
 
 **Avoid Pydantic AI if:**
 
-- You aren't comfortable integrating an Agentic AI system into a graph orchestration system like LangGraph
+- You aren't comfortable integrating an Agentic AI system into a graph orchestration system like [LangGraph](https://langchain-ai.github.io/langgraph/)
 - You want a plug-and-play ecosystem with lots of integrations (vector stores, retrievers, etc.).
 - You require sub-second, high-throughput performance at scale.
-- You want a "batteries included" agent platform (memory, tool selection, multi-agent collaboration, etc.).
+- You want a "batteries included" agent platform (memory, tool selection, multi-agent collaboration, etc.)
 - You don't have a strong engineering team.
 
 ## Best Practices
 
-- **Unit tests:** Always write unit tests for your business logic, especially for code that consumes Pydantic AI outputs. Mock LLM/model responses to test both valid and invalid cases. Use async test frameworks (like pytest-asyncio) for async agent flows.
-
-  ```python
-  import pytest
-  from pydantic import BaseModel
-  from pydantic_ai import Agent
-
-  class Order(BaseModel):
-      id: int
-      total: float
-
-  def test_agent_returns_valid_order(monkeypatch):
-      class DummyModel:
-          def run_sync(self, prompt, **kwargs):
-              return type('Result', (), {'data': Order(id=1, total=99.99)})()
-      agent = Agent(DummyModel(), result_type=Order)
-      result = agent.run_sync('Generate an order.')
-      assert result.data.id == 1
-      assert result.data.total == 99.99
-  ```
-
-- **Evaluation tests:** Go beyond unit tests—use evaluation frameworks or custom scripts to measure LLM output quality on real or synthetic datasets. Track accuracy, robustness, and failure modes. Treat your prompts and schemas as code: version, test, and review them.
-
-- **Instrument early:** Add OpenTelemetry instrumentation (via InstrumentationSettings) from day one. This gives you traces, metrics, and logs for agent runs, tool calls, and validation steps. Exclude sensitive content in production if needed.
-
-- **Use Pydantic AI for validation, LangGraph for flow:** For complex, multi-step agentic workflows, use Pydantic AI to validate and structure LLM/tool outputs, but let LangGraph handle orchestration, branching, and state management.
-
-- **Glue code:** Write thin adapters to connect Pydantic AI agents as nodes or tools within your LangGraph graphs. Test these integrations with both happy-path and error scenarios.
-
-- **Iterate fast:** Start with simple flows, then incrementally add complexity. Use observability and evaluation data to refine both your orchestration logic and your Pydantic schemas.
-
-- **Be explicit:** Write clear, unambiguous prompts and document their intent. Small changes can have big effects—track and review prompt changes like code.
-
-- **Version prompts:** Use version control for prompts and system instructions. When updating, run regression tests to catch unexpected changes in LLM behavior.
-
-- **Plan for change:** As your application evolves, your Pydantic models will too. Use versioned schemas and migration strategies to avoid breaking downstream consumers.
-
-- **Validate old data:** When updating schemas, ensure you can still parse and validate historical outputs or logs for auditability and debugging.
-
-- **Limit logging of sensitive data:** Use InstrumentationSettings to exclude prompts, completions, or tool arguments that may contain PII or proprietary information.
-
-- **Review observability exports:** Regularly audit what data is sent to observability backends, especially in regulated environments.
+- **Use Pydantic AI for validation, LangGraph for flow:** For complex, multi-step agentic workflows, use Pydantic AI to validate and structure LLM/tool outputs, but let LangGraph handle orchestration, branching, and state management. Write thin adapters to connect Pydantic AI agents as nodes or tools within your LangGraph graphs. Test these integrations with both happy-path and error scenarios. ([LangGraph docs](https://langchain-ai.github.io/langgraph/))
+- **Plan for evolution:** As your application evolves, your Pydantic models will too. Use versioned schemas and migration strategies to avoid breaking downstream consumers. When updating schemas, ensure you can still parse and validate historical outputs or logs for auditability and debugging.
+- **Instrument with OpenTelemetry**: Add OTel instrumentation from day one to capture traces, metrics, and logs for agent runs, tool calls, and validation steps. Exclude sensitive data in production and regularly audit what is exported to observability backends, especially in regulated environments. ([OpenTelemetry docs](https://opentelemetry.io/docs/))
 
 ## Deep Dive
 
 ### Development Methodology
 
-Pydantic AI is built by the core maintainers of Pydantic, led by Samuel Colvin. Their track record is clear: they've set the standard for type safety and validation in Python, with a relentless focus on correctness, performance, and developer experience. The project is open-source, community-driven, and shaped by real-world feedback from thousands of production users.
+Pydantic AI is built by the core maintainers of Pydantic, led by Samuel Colvin. Their track record is clear: they've set the standard for type safety and validation in Python, with a relentless focus on correctness, performance, and developer experience. The project is open-source, community-driven, and shaped by real-world feedback from thousands of production users. ([Pydantic AI GitHub](https://github.com/pydantic/pydantic-ai))
 
 - **Type safety as a non-negotiable:** Pydantic AI enforces strict contracts between your code and the LLM, catching errors at the boundary—before they can corrupt your data or logic.
-
-  ```python
-  from pydantic import BaseModel
-  from pydantic_ai import Agent
-
-  class User(BaseModel):
-      name: str
-      age: int
-
-  agent = Agent("gpt-4o", result_type=User)
-  try:
-      result = agent.run_sync("Generate a user with name and age.")
-      print(result.data)
-  except Exception as e:
-      print("Validation failed:", e)
-  ```
-
 - **Fail fast, fail loud:** Instead of silent failures or brittle hacks, you get immediate, actionable errors. This is a conscious rejection of the "move fast and break things" mentality that plagues most LLM integrations.
-
 - **Pythonic, developer-first design:** The API is intuitive, composable, and leverages the best of Python's typing ecosystem. You don't have to fight the tool to get reliable results.
-
-  ```python
-  # IDE autocompletion works out of the box
-  user = result.data
-  print(user.name)
-  print(user.age)
-  ```
-
 - **Open-source ethos:** The team prioritizes transparency, documentation, and community input, ensuring the tool evolves to meet real developer needs.
 
 ### Developer Experience
@@ -193,9 +128,70 @@ def create_product(product: Product):
     ...
 ```
 
+### Integrating with Tools
+
+Pydantic AI is designed to be extensible, allowing you to write your own custom tools and integrate with broader automation or orchestration platforms like MCP (Modular Command Platform). This flexibility is crucial for building real-world, production-grade LLM applications. ([MCP docs](https://ai.pydantic.dev/mcp/client/#sse-client))
+
+A "tool" in the context of agentic frameworks is typically a function or class that performs a specific action—such as calling an API, querying a database, or transforming data. With Pydantic AI, you can define tools with strong type safety using Pydantic models for both input and output.
+
+**Example: Defining and Registering a Custom Tool**
+
+```python
+from pydantic import BaseModel
+from pydantic_ai.tools import Tool, register_tool
+
+class WeatherInput(BaseModel):
+    city: str
+
+class WeatherOutput(BaseModel):
+    temperature_c: float
+    description: str
+
+def get_weather(data: WeatherInput) -> WeatherOutput:
+    # Imagine this calls a real API
+    return WeatherOutput(temperature_c=22.5, description="Sunny")
+
+weather_tool = Tool(
+    name="get_weather",
+    description="Get the current weather for a city.",
+    input_model=WeatherInput,
+    output_model=WeatherOutput,
+    func=get_weather,
+)
+
+register_tool(weather_tool)
+```
+
+You can now use this tool in your agent flows, and Pydantic AI will validate all inputs and outputs automatically.
+
+**Example: Attaching an MCP Server to an Agent**
+
+```python
+from pydantic_ai import Agent
+from pydantic_ai.mcp import MCPServerSSE
+
+# 1. Define the MCP server (could be a GitHub tool server, etc.)
+server = MCPServerSSE(url='http://localhost:3001/sse')
+
+# 2. Create the agent with the MCP server attached
+agent = Agent('openai:gpt-4o', mcp_servers=[server])
+
+# 3. Use the agent as normal; it can now call any tool provided by the MCP server
+async def main():
+    async with agent.run_mcp_servers():
+        result = await agent.run('Open a pull request on repo X with title Y and body Z')
+    print(result.output)
+```
+
+- The LLM can now "see" and invoke the tools provided by the MCP server (e.g., `open_pull_request`, `add_label`, etc.) as part of its tool-calling capabilities.
+- No glue code or manual tool registration required—the agent dynamically discovers and uses the tools.
+- You can connect to multiple MCP servers, use tool prefixes to avoid naming conflicts, and even do sampling/proxying of LLM calls.
+
+For more details and advanced usage (including tool call customization, prefixes, and sampling), see the official docs: [Pydantic AI MCP Client](https://ai.pydantic.dev/mcp/client/#sse-client).
+
 ### Testing & Evaluation
 
-One of the biggest advantages of Pydantic AI is that it brings type safety and schema validation to the unpredictable world of LLMs. This makes happy-path testing much easier: you can write tests that assert your agent returns a valid, typed model—or fails loudly if the LLM output is malformed.
+One of the biggest advantages of Pydantic AI is that it brings type safety and schema validation to the unpredictable world of LLMs. This makes happy-path testing much easier: you can write tests that assert your agent returns a valid, typed model—or fails loudly if the LLM output is malformed. ([Testing LLMs](https://arxiv.org/abs/2307.10169))
 
 **What's easy:**
 
@@ -205,7 +201,7 @@ One of the biggest advantages of Pydantic AI is that it brings type safety and s
 **What's hard:**
 
 - Testing complex agent flows, tool errors, or dependency injection edge cases can be tricky. Error messages aren't always clear, and mocking LLM responses or tool calls requires extra setup.
-- If your agent uses async tools or external APIs, you'll need to use async test frameworks (like pytest-asyncio) and carefully mock dependencies.
+- If your agent uses async tools or external APIs, you'll need to use async test frameworks (like [pytest-asyncio](https://pytest-asyncio.readthedocs.io/en/latest/)) and carefully mock dependencies.
 
 **Example: Unit Testing a Pydantic AI Agent**
 
@@ -270,11 +266,17 @@ print(f"LLM Judge Score: {result.score}")
 print(f"LLM Judge Explanation: {result.explanation}")
 ```
 
+**Benefits:**
+
+- Standardizes LLM-based evaluation with reusable rubrics and consistent scoring.
+- Scales to large test sets and supports advanced reporting.
+- Reduces boilerplate and manual prompt engineering.
+
 This pattern is powerful for regression testing, prompt tuning, and continuous evaluation of LLM-powered systems. Always review a sample of LLM-judged results to ensure quality and fairness.
 
 ### Observability
 
-As LLM-powered systems move into production, observability becomes non-negotiable. You need to know not just if your code works, but how it behaves in the wild—where latency spikes, where errors occur, and how agent flows perform end-to-end. Pydantic AI is built to be observability-agnostic, with first-class support for OpenTelemetry (OTel).
+As LLM-powered systems move into production, observability becomes non-negotiable. You need to know not just if your code works, but how it behaves in the wild—where latency spikes, where errors occur, and how agent flows perform end-to-end. Pydantic AI is built to be observability-agnostic, with first-class support for [OpenTelemetry (OTel)](https://opentelemetry.io/). ([LLM Observability](https://arxiv.org/abs/2307.10169))
 
 **Pydantic AI & OpenTelemetry Integration**
 Pydantic AI can be instrumented with OpenTelemetry to provide:
@@ -285,7 +287,7 @@ Pydantic AI can be instrumented with OpenTelemetry to provide:
 
 **How to Instrument with OpenTelemetry**
 
-1. **Set Custom OTel Providers with InstrumentationSettings**
+1. **Set Custom OTel Providers with InstrumentationSettings** ([Pydantic AI OTel docs](https://ai.pydantic.dev/logfire/#instrumenting-a-specific-model))
 
 ```python
 from opentelemetry.sdk._events import EventLoggerProvider
@@ -341,24 +343,24 @@ For more details and advanced usage, see the official docs: [PydanticAI Debuggin
 
 ### Deployment
 
-Pydantic AI does not come with any out of the box solution for deployment, and focused entirely on the development of the agents. With that being said, it does focus on containerised technologies for runtime and therefore is simple to integrate into your Cloud environments, K8s or any other OCI compliant runtime.
+Pydantic AI does not come with any out of the box solution for deployment, and focused entirely on the development of the agents. With that being said, it does focus on containerised technologies for runtime and therefore is simple to integrate into your Cloud environments, K8s or any other OCI compliant runtime. ([Kubernetes best practices](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/))
 
 ### Strengths
 
-- Type Safety as a first order concept
-- Solid integration into observability tooling using open source frameworks
+- Type Safety as a first order concept ([Pydantic docs](https://docs.pydantic.dev/))
+- Solid integration into observability tooling using open source frameworks ([OpenTelemetry](https://opentelemetry.io/))
 - Clear, actionable error messages that speed up debugging
 - Extensible with custom validators and plugins
-- Excellent documentation and active community support
+- Excellent documentation and active community support ([Pydantic AI docs](https://ai.pydantic.dev/))
 - Pythonic, intuitive API design that fits naturally into modern Python projects
 - Strong support for schema evolution and versioning
-- Easy integration with FastAPI, SQLModel, and other popular Python frameworks
+- Easy integration with [FastAPI](https://fastapi.tiangolo.com/), [SQLModel](https://sqlmodel.tiangolo.com/), and other popular Python frameworks
 
 ### Weaknesses
 
 - Clumsy attempt at graph orchestration, requires external library.
 - Performance cost at large scale
-- Limited ecosystem compared to more mature agentic frameworks (e.g., LangChain)
+- Limited ecosystem compared to more mature agentic frameworks (e.g., [LangChain](https://python.langchain.com/))
 - Steep learning curve for teams unfamiliar with Pydantic or type-driven development
 - Async support is present but not as seamless as sync flows
 - Occasional breaking changes as the project evolves rapidly
