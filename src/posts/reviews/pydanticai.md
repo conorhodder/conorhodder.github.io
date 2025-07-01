@@ -347,11 +347,23 @@ Pydantic AI does not come with any out of the box solution for deployment, and f
 
 - Type Safety as a first order concept
 - Solid integration into observability tooling using open source frameworks
+- Clear, actionable error messages that speed up debugging
+- Extensible with custom validators and plugins
+- Excellent documentation and active community support
+- Pythonic, intuitive API design that fits naturally into modern Python projects
+- Strong support for schema evolution and versioning
+- Easy integration with FastAPI, SQLModel, and other popular Python frameworks
 
 ### Weaknesses
 
 - Clumsy attempt at graph orchestration, requires external library.
 - Performance cost at large scale
+- Limited ecosystem compared to more mature agentic frameworks (e.g., LangChain)
+- Steep learning curve for teams unfamiliar with Pydantic or type-driven development
+- Async support is present but not as seamless as sync flows
+- Occasional breaking changes as the project evolves rapidly
+- Smaller set of out-of-the-box integrations (retrievers, memory, tools) than some competitors
+- Some advanced features require deep understanding of Python typing and Pydantic internals
 
 ---
 
