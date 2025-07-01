@@ -30,6 +30,7 @@ It is not magic, but it's a _real_ step forward for anyone serious about product
 - You want a plug-and-play ecosystem with lots of integrations (vector stores, retrievers, etc.).
 - You require sub-second, high-throughput performance at scale.
 - You want a "batteries included" agent platform (memory, tool selection, multi-agent collaboration, etc.).
+- You don't have a strong engineering team.
 
 ## Best Practices
 
