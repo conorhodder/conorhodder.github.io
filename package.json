@@ -1,0 +1,13 @@
+{
+  "name": "eleventy-chart-demo",
+  "version": "1.0.0",
+  "description": "Minimal Eleventy project with Chart.js demo.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx eleventy --serve",
+    "build": "npx eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0"
+  }
+} 
