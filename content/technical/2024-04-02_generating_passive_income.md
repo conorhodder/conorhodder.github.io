@@ -1,6 +1,6 @@
 +++
 date = '2025-04-01T16:45:40-08:00'
-draft = false
+draft = true
 title = "Generating Passive Income Using Generative AI"
 +++
 
@@ -62,9 +62,9 @@ Here’s an example of one of my early attempts:
 
 ![before.png](/img/2024-04-02_automating_businesses_with_ai_bad.png)
 
-Yep, this was a *real* published game. Now you see why I didn’t want my name attached.
+Yep, this was a _real_ published game. Now you see why I didn’t want my name attached.
 
-After a month of reflection, I realized I was **breaking my own rules**—I was spending *more* time and *more* money on something that wasn’t bringing me joy. I had to rethink my approach.
+After a month of reflection, I realized I was **breaking my own rules**—I was spending _more_ time and _more_ money on something that wasn’t bringing me joy. I had to rethink my approach.
 
 ---
 
@@ -87,9 +87,10 @@ With these changes, things started looking up:
 I didn’t fully automate everything right away—I first needed to prove it was worth it.
 
 **Key changes:**
-- I removed *high-cost, low-reward* game genres (e.g., JRPGs).
+
+- I removed _high-cost, low-reward_ game genres (e.g., JRPGs).
 - I automated **idea generation** with generative AI.
-- I refined AI prompts from simple *"make me an idle game"* to advanced techniques like **chain-of-thought prompting**.
+- I refined AI prompts from simple _"make me an idle game"_ to advanced techniques like **chain-of-thought prompting**.
 - I even automated parts of coding, reducing my daily workload from hours of development to simple **QA testing**.
 
 Eventually, I realized **I was the bottleneck**—so I stepped back and let the AI take over.
