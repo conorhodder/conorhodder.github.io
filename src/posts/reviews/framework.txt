@@ -1,0 +1,68 @@
+---
+title: "<articlename>"
+date: <today>
+tags: [review]
+layout: review.njk
+summary: "<articlereview>"
+---
+
+## Summary
+
+<Add summary>
+
+## When to use it
+
+**Use if:**
+
+- <add reasons>
+
+**Avoid if:**
+
+- <add reasons to not use it>
+
+## Best Practices
+
+- <add reasons>
+
+## Deep Dive
+
+### Development Methodology
+
+<fill this out>
+
+### Developer Experience
+
+<fill this out>
+
+### Integrating with Tools
+
+<fill this out>
+
+### Testing & Evaluation
+
+<fill this out>
+
+**Example: Unit Testing a Pydantic AI Agent**
+<fill this out>
+
+**Example: Using pydantic-eval for LLM Output Evaluation**
+<fill this out>
+
+### Observability
+
+<fill this out>
+
+### Deployment
+
+<fill this out>
+
+### Strengths
+
+<fill this out>
+
+### Weaknesses
+
+## <fill this out>
+
+**Want more?**  
+If you need a full walkthrough, integration tips, or want to see how Pydantic AI compares to LangChain or other frameworks, let me know.
