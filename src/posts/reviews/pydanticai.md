@@ -31,15 +31,50 @@ It is not magic, but it's a _real_ step forward for anyone serious about product
 - You require sub-second, high-throughput performance at scale.
 - You want a "batteries included" agent platform (memory, tool selection, multi-agent collaboration, etc.).
 
-## Strengths
+## Best Practices
 
-- Type Safety as a first order concept
-- Solid integration into observability tooling using open source frameworks
+- **Unit tests:** Always write unit tests for your business logic, especially for code that consumes Pydantic AI outputs. Mock LLM/model responses to test both valid and invalid cases. Use async test frameworks (like pytest-asyncio) for async agent flows.
 
-## Weaknesses
+  ```python
+  import pytest
+  from pydantic import BaseModel
+  from pydantic_ai import Agent
 
-- Clumsy attempt at graph orchestration, requires external library.
-- Performance cost at large scale
+  class Order(BaseModel):
+      id: int
+      total: float
+
+  def test_agent_returns_valid_order(monkeypatch):
+      class DummyModel:
+          def run_sync(self, prompt, **kwargs):
+              return type('Result', (), {'data': Order(id=1, total=99.99)})()
+      agent = Agent(DummyModel(), result_type=Order)
+      result = agent.run_sync('Generate an order.')
+      assert result.data.id == 1
+      assert result.data.total == 99.99
+  ```
+
+- **Evaluation tests:** Go beyond unit tests—use evaluation frameworks or custom scripts to measure LLM output quality on real or synthetic datasets. Track accuracy, robustness, and failure modes. Treat your prompts and schemas as code: version, test, and review them.
+
+- **Instrument early:** Add OpenTelemetry instrumentation (via InstrumentationSettings) from day one. This gives you traces, metrics, and logs for agent runs, tool calls, and validation steps. Exclude sensitive content in production if needed.
+
+- **Use Pydantic AI for validation, LangGraph for flow:** For complex, multi-step agentic workflows, use Pydantic AI to validate and structure LLM/tool outputs, but let LangGraph handle orchestration, branching, and state management.
+
+- **Glue code:** Write thin adapters to connect Pydantic AI agents as nodes or tools within your LangGraph graphs. Test these integrations with both happy-path and error scenarios.
+
+- **Iterate fast:** Start with simple flows, then incrementally add complexity. Use observability and evaluation data to refine both your orchestration logic and your Pydantic schemas.
+
+- **Be explicit:** Write clear, unambiguous prompts and document their intent. Small changes can have big effects—track and review prompt changes like code.
+
+- **Version prompts:** Use version control for prompts and system instructions. When updating, run regression tests to catch unexpected changes in LLM behavior.
+
+- **Plan for change:** As your application evolves, your Pydantic models will too. Use versioned schemas and migration strategies to avoid breaking downstream consumers.
+
+- **Validate old data:** When updating schemas, ensure you can still parse and validate historical outputs or logs for auditability and debugging.
+
+- **Limit logging of sensitive data:** Use InstrumentationSettings to exclude prompts, completions, or tool arguments that may contain PII or proprietary information.
+
+- **Review observability exports:** Regularly audit what data is sent to observability backends, especially in regulated environments.
 
 ## Deep Dive
 
@@ -48,13 +83,114 @@ It is not magic, but it's a _real_ step forward for anyone serious about product
 Pydantic AI is built by the core maintainers of Pydantic, led by Samuel Colvin. Their track record is clear: they've set the standard for type safety and validation in Python, with a relentless focus on correctness, performance, and developer experience. The project is open-source, community-driven, and shaped by real-world feedback from thousands of production users.
 
 - **Type safety as a non-negotiable:** Pydantic AI enforces strict contracts between your code and the LLM, catching errors at the boundary—before they can corrupt your data or logic.
+
+  ```python
+  from pydantic import BaseModel
+  from pydantic_ai import Agent
+
+  class User(BaseModel):
+      name: str
+      age: int
+
+  agent = Agent("gpt-4o", result_type=User)
+  try:
+      result = agent.run_sync("Generate a user with name and age.")
+      print(result.data)
+  except Exception as e:
+      print("Validation failed:", e)
+  ```
+
 - **Fail fast, fail loud:** Instead of silent failures or brittle hacks, you get immediate, actionable errors. This is a conscious rejection of the "move fast and break things" mentality that plagues most LLM integrations.
+
 - **Pythonic, developer-first design:** The API is intuitive, composable, and leverages the best of Python's typing ecosystem. You don't have to fight the tool to get reliable results.
+
+  ```python
+  # IDE autocompletion works out of the box
+  user = result.data
+  print(user.name)
+  print(user.age)
+  ```
+
 - **Open-source ethos:** The team prioritizes transparency, documentation, and community input, ensuring the tool evolves to meet real developer needs.
 
 ### Developer Experience
 
-The pythonic design of Pydantic AI provides a seamless environment for experienced Python developers to write code that will perform at scale.
+The pythonic design of Pydantic AI provides a seamless environment for experienced Python developers to write code that will perform at scale. But the real value is in how it transforms the day-to-day workflow:
+
+#### Instantly Catching LLM Output Errors
+
+With Pydantic AI, you don't have to write defensive code for every possible malformed LLM output. The schema validation does it for you:
+
+```python
+from pydantic import BaseModel
+from pydantic_ai import Agent
+
+class Product(BaseModel):
+    name: str
+    price: float
+
+agent = Agent("gpt-4o", result_type=Product)
+
+# If the LLM returns a string for price, or omits a field, you get a clear error—not a silent bug.
+try:
+    result = agent.run_sync("Generate a product with name and price.")
+    print(result.data)
+except Exception as e:
+    print("Validation failed:", e)
+```
+
+#### Type-Safe Autocompletion and Refactoring
+
+Because outputs are real Pydantic models, your IDE can autocomplete fields and catch typos:
+
+```python
+# IDE will suggest .name and .price, not random dict keys
+product = result.data
+print(product.name)
+print(product.price)
+```
+
+#### Easy Testing and Mocking
+
+You can mock LLM responses with real models, making tests simple and robust:
+
+```python
+def test_agent_returns_valid_product(monkeypatch):
+    class DummyModel:
+        def run_sync(self, prompt, **kwargs):
+            return type('Result', (), {'data': Product(name='Widget', price=19.99)})()
+    agent = Agent(DummyModel(), result_type=Product)
+    result = agent.run_sync('Generate a product.')
+    assert result.data.name == 'Widget'
+    assert result.data.price == 19.99
+```
+
+#### Schema-Driven Prompting
+
+You can generate prompts or validate outputs directly from your Pydantic models, reducing duplication and drift:
+
+```python
+from pydantic_ai.prompting import prompt_from_schema
+
+prompt = prompt_from_schema(Product)
+print(prompt)
+# Output: "Generate a product with the following fields: name (string), price (float)."
+```
+
+#### Effortless Integration with Tooling
+
+Because Pydantic AI uses standard Python types, you can plug outputs directly into FastAPI, SQLModel, or other frameworks:
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.post("/product")
+def create_product(product: Product):
+    # product is already validated and type-safe
+    ...
+```
 
 ### Testing & Evaluation
 
@@ -70,7 +206,7 @@ One of the biggest advantages of Pydantic AI is that it brings type safety and s
 - Testing complex agent flows, tool errors, or dependency injection edge cases can be tricky. Error messages aren't always clear, and mocking LLM responses or tool calls requires extra setup.
 - If your agent uses async tools or external APIs, you'll need to use async test frameworks (like pytest-asyncio) and carefully mock dependencies.
 
-**Example: Testing a Pydantic AI Agent**
+**Example: Unit Testing a Pydantic AI Agent**
 
 ```python
 import pytest
@@ -96,6 +232,44 @@ def test_agent_returns_valid_user(monkeypatch):
 ```
 
 Pydantic AI makes it much easier to write meaningful, business-focused tests for LLM-powered code. But for complex agent flows, you'll need to invest in good test infrastructure and be ready to mock or stub out the unpredictable parts.
+
+**Example: Using pydantic-eval for LLM Output Evaluation**
+
+For evaluation tests, you can go beyond schema validation and use the [pydantic-eval](https://github.com/pydantic/eval) package to automate the process of having an LLM judge the quality or correctness of another LLM's output. This is especially useful for subjective or open-ended tasks where strict validation isn't enough.
+
+`pydantic-eval` provides a simple interface for running LLM-based evaluations at scale, with built-in support for common metrics and prompt templates.
+
+```python
+from pydantic_eval import LLMJudge, JudgedExample
+from pydantic_ai import Agent
+from pydantic_ai.models.openai import OpenAIModel
+
+# Agent that generates a summary
+summary_agent = Agent(OpenAIModel("gpt-4o"))
+
+input_text = "Pydantic AI is a library for validating LLM outputs."
+summary = summary_agent.run_sync(f"Summarize: {input_text}").output
+
+# Use pydantic-eval's LLMJudge to evaluate the summary
+judge = LLMJudge(model="gpt-4o")
+
+example = JudgedExample(
+    input=input_text,
+    output=summary,
+    reference="Pydantic AI helps ensure LLM outputs are type-safe and valid."
+)
+
+result = judge.judge(
+    example,
+    rubric="Rate the summary for accuracy and completeness on a scale of 1 to 5."
+)
+
+print(f"Summary: {summary}")
+print(f"LLM Judge Score: {result.score}")
+print(f"LLM Judge Explanation: {result.explanation}")
+```
+
+This pattern is powerful for regression testing, prompt tuning, and continuous evaluation of LLM-powered systems. Always review a sample of LLM-judged results to ensure quality and fairness.
 
 ### Observability
 
@@ -168,20 +342,15 @@ For more details and advanced usage, see the official docs: [PydanticAI Debuggin
 
 Pydantic AI does not come with any out of the box solution for deployment, and focused entirely on the development of the agents. With that being said, it does focus on containerised technologies for runtime and therefore is simple to integrate into your Cloud environments, K8s or any other OCI compliant runtime.
 
-### Best Practices
+### Strengths
 
-- **Unit tests:** Always write unit tests for your business logic, especially for code that consumes Pydantic AI outputs. Mock LLM/model responses to test both valid and invalid cases. Use async test frameworks (like pytest-asyncio) for async agent flows.
-- **Evaluation tests:** Go beyond unit tests—use evaluation frameworks or custom scripts to measure LLM output quality on real or synthetic datasets. Track accuracy, robustness, and failure modes. Treat your prompts and schemas as code: version, test, and review them.
-- **Instrument early:** Add OpenTelemetry instrumentation (via InstrumentationSettings) from day one. This gives you traces, metrics, and logs for agent runs, tool calls, and validation steps. Exclude sensitive content in production if needed.
-- **Use Pydantic AI for validation, LangGraph for flow:** For complex, multi-step agentic workflows, use Pydantic AI to validate and structure LLM/tool outputs, but let LangGraph handle orchestration, branching, and state management.
-- **Glue code:** Write thin adapters to connect Pydantic AI agents as nodes or tools within your LangGraph graphs. Test these integrations with both happy-path and error scenarios.
-- **Iterate fast:** Start with simple flows, then incrementally add complexity. Use observability and evaluation data to refine both your orchestration logic and your Pydantic schemas.
-- **Be explicit:** Write clear, unambiguous prompts and document their intent. Small changes can have big effects—track and review prompt changes like code.
-- **Version prompts:** Use version control for prompts and system instructions. When updating, run regression tests to catch unexpected changes in LLM behavior.
-- **Plan for change:** As your application evolves, your Pydantic models will too. Use versioned schemas and migration strategies to avoid breaking downstream consumers.
-- **Validate old data:** When updating schemas, ensure you can still parse and validate historical outputs or logs for auditability and debugging.
-- **Limit logging of sensitive data:** Use InstrumentationSettings to exclude prompts, completions, or tool arguments that may contain PII or proprietary information.
-- **Review observability exports:** Regularly audit what data is sent to observability backends, especially in regulated environments.
+- Type Safety as a first order concept
+- Solid integration into observability tooling using open source frameworks
+
+### Weaknesses
+
+- Clumsy attempt at graph orchestration, requires external library.
+- Performance cost at large scale
 
 ---
 
