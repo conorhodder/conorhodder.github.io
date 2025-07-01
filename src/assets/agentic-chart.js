@@ -7,49 +7,88 @@ const frameworks = [
     name: "Pydantic AI",
     link: "https://github.com/pydantic-ai/pydantic-ai",
     description: "Pydantic AI: framework for building agentic applications with Pydantic, focused on type safety and developer experience.",
-    review: { fit: 8.5, maturity: 8, "assessment-date": "2025-07-01" }
+    assessment: { fit: 8.5, maturity: 8, "assessment-date": "2025-07-01" },
+    review: "/posts/reviews/pydanticai"
   },
   {
     name: "Google ADK",
     link: "https://github.com/google/adk",
     description: "Google's Agent Development Kit: production-grade, multi-agent, model-agnostic, code-first, rapidly evolving.",
-    review: { fit: 7, maturity: 3, "assessment-date": "2025-07-01" }
+    assessment: { fit: 7, maturity: 3, "assessment-date": "2025-07-01" }
   },
   {
     name: "LangGraph (LangChain)",
     link: "https://github.com/langchain-ai/langgraph",
     description: "LangGraph: expressive, graph-based agent orchestration for complex, stateful, multi-agent workflows.",
-    review: { fit: 5, maturity: 8, "assessment-date": "2025-07-01" }
+    assessment: { fit: 5, maturity: 8, "assessment-date": "2025-07-01" }
   },
   {
     name: "CrewAI",
     link: "https://github.com/joaomdmoura/crewAI",
     description: "CrewAI: role-based, collaborative multi-agent framework for workflow composition and agent specialization.",
-    review: { fit: 4, maturity: 7, "assessment-date": "2025-07-01" }
+    assessment: { fit: 4, maturity: 7, "assessment-date": "2025-07-01" }
   },
   {
     name: "OpenAI Agents SDK",
     link: "https://github.com/openai/swarm",
     description: "OpenAI Agents SDK: lightweight, ergonomic, production-ready for multi-agent orchestration (formerly Swarm).",
-    review: { fit: 4, maturity: 7.5, "assessment-date": "2025-07-01" }
+    assessment: { fit: 4, maturity: 7.5, "assessment-date": "2025-07-01" }
   },
   {
     name: "AutoGen (Microsoft)",
     link: "https://github.com/microsoft/autogen",
     description: "AutoGen: multi-agent, LLM-powered conversations and workflows, strong on agent-to-agent communication.",
-    review: { fit: 3, maturity: 7, "assessment-date": "2025-07-01" }
+    assessment: { fit: 3, maturity: 7, "assessment-date": "2025-07-01" }
   },
   {
     name: "Haystack Agents",
     link: "https://github.com/deepset-ai/haystack",
     description: "Haystack Agents: agentic pipelines for search, retrieval, and reasoning, strong LLM and knowledge base integration.",
-    review: { fit: 6.5, maturity: 7, "assessment-date": "2025-07-01" }
+    assessment: { fit: 6.5, maturity: 7, "assessment-date": "2025-07-01" }
   }
 ];
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  populate_framework_list();
+  add_chart();
+});
+
+function populate_framework_list() {
+  const list = document.getElementById('framework-list');
+  if (!list) return;
+  list.innerHTML = '';
+
+
+  const header = document.createElement('h3');
+  header.textContent = 'Reviews';
+
+  const reviewList = document.createElement('ul');
+
+  frameworks.forEach(fw => {
+    if (!fw.review) {
+      return;
+    }
+
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = fw.review;
+    a.textContent = fw.name;
+    a.target = '_blank';
+    li.appendChild(a);
+    reviewList.appendChild(li);
+  });
+
+  if (reviewList.children.length > 0) {
+    list.appendChild(header);
+    list.appendChild(reviewList);
+  }
+}
+
+function add_chart() {
   const ctx = document.getElementById('agentic-ratings').getContext('2d');
+
+  
 
   // Four-quadrant background plugin
   const quadrantBackground = {
@@ -91,22 +130,26 @@ document.addEventListener('DOMContentLoaded', function () {
       ctx.textBaseline = 'top';
       ctx.fillStyle = 'rgba(0,0,0,0.5)';
       const margin = 12;
+      
       // Q2 (top-left): Maintain
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillText('Maintain', chartArea.left + margin, chartArea.top + margin);
+      ctx.fillText('MAINTAIN', chartArea.left + margin, chartArea.top + margin);
+      
       // Q1 (top-right): Adopt
       ctx.textAlign = 'right';
       ctx.textBaseline = 'top';
-      ctx.fillText('Adopt', chartArea.right - margin, chartArea.top + margin);
+      ctx.fillText('ADOPT', chartArea.right - margin, chartArea.top + margin);
+      
       // Q3 (bottom-left): Avoid
       ctx.textAlign = 'left';
       ctx.textBaseline = 'bottom';
-      ctx.fillText('Avoid', chartArea.left + margin, chartArea.bottom - margin);
+      ctx.fillText('AVOID', chartArea.left + margin, chartArea.bottom - margin);
+      
       // Q4 (bottom-right): Watch
       ctx.textAlign = 'right';
       ctx.textBaseline = 'bottom';
-      ctx.fillText('Watch', chartArea.right - margin, chartArea.bottom - margin);
+      ctx.fillText('WATCH', chartArea.right - margin, chartArea.bottom - margin);
       ctx.restore();
     }
   };
@@ -116,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     data: {
       datasets: frameworks.map(fw => ({
         label: fw.name,
-        data: [{ x: fw.review.fit, y: fw.review.maturity }],
+        data: [{ x: fw.assessment.fit, y: fw.assessment.maturity }],
         backgroundColor: 'rgba(75, 192, 192, 1)'
       }))
     },
@@ -175,4 +218,4 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     plugins: [quadrantBackground]
   });
-});
+}
