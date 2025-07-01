@@ -25,3 +25,31 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+#toc {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 1em;
+    margin-bottom: 2em;
+    border-radius: 6px;
+    font-size: 0.95em;
+  }
+  
+  .toc-title {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .toc-list li {
+    margin-bottom: 0.3em;
+  }
+
+  .toc-list .toc-indent {
+    margin-left: 1.5em;
+    font-size: 0.95em;
+  }

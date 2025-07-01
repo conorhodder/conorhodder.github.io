@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
   <link rel="stylesheet" href="/styles.css">
+    <script src="/assets/review.js"></script>
 </head>
 <body>
   <div class="container mt-5">
@@ -21,6 +22,8 @@
                     <p class="summary">{{ summary }}</p>
                   {% endif %}
                   
+                  <nav id="toc"></nav>
+
                   <div class="content">
                     {{ content | safe }}
                   </div>

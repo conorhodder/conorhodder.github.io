@@ -219,3 +219,4 @@ function add_chart() {
     plugins: [quadrantBackground]
   });
 }
+
